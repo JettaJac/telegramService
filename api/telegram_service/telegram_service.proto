@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package telegram_service;
+
+import "google/api/annotations.proto";
+
+option go_package = "telegramservice/api/proto";
+
+service TelegramService {
+  rpc CreateConnection(CreateConnectionRequest) returns (CreateConnectionResponse) {
+    option (google.api.http) = {
+      post: "/CreateConnection"
+      body: "*"
+    };
+  }
+  rpc DeleteConnection(DeleteConnectionRequest) returns (DeleteConnectionResponse) {
+    option (google.api.http) = {
+      post: "/DeleteConnection"
+      body: "*"
+    };}
+
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse){
+    option (google.api.http) = {
+      post: "/SendMessage"
+      body: "*"
+    };}
+
+  rpc GetMessages(GetMessagesRequest) returns (stream Message){
+    option (google.api.http) = {
+      get: "/GetMessages"
+    };}
+
+  rpc ListConnections(ListConnectionsRequest) returns (ListConnectionsResponse){
+      option (google.api.http) = {
+      post: "/ListConnections"
+          body: "*"
+          };}
+}
+
+message CreateConnectionRequest {
+  string connection_id = 1;
+}
+
+message CreateConnectionResponse {
+  string connection_id = 1;
+  string qr_code_data = 2;
+  string status = 3;
+}
+
+message DeleteConnectionRequest {
+  string connection_id = 1;
+  bool logout = 2;
+}
+
+message DeleteConnectionResponse {
+  string connection_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message SendMessageRequest {
+  string connection_id = 1;
+  string chat_id = 2;
+  string text = 3;
+}
+
+message SendMessageResponse {
+  string message_id = 1;
+  bool success = 2;
+  string error = 3;
+}
+
+message GetMessagesRequest {
+  string connection_id = 1;
+  int32 limit = 2;
+}
+
+message Message {
+  string id = 1;
+  string connection_id = 2;
+  string sender_id = 3;
+  string text = 4;
+  int64 timestamp = 5;
+  string chat_id = 6;
+}
+
+message ListConnectionsRequest {}
+
+message ListConnectionsResponse {
+  repeated ConnectionInfo connections = 1;
+}
+
+message ConnectionInfo {
+  string connection_id = 1;
+  string status = 2;
+  int64 created_at = 3;
+}

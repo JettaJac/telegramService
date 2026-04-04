@@ -1,0 +1,28 @@
+server:
+  port: "50051"
+  max_connection_idle: 5m
+  max_connection_age: 10m
+
+clients:
+  grpc:
+    host: "localhost"
+    port: "50051"
+    timeout: 30s
+    retries_count: 3
+  telegram:
+    api_id: 123456
+    api_hash: "your_api_hash_here"
+    session_dir: "./sessions"
+    qr_timeout: 60s  # время ожидания сканирования QR кода
+
+storage:
+  type: "memory"
+  session_ttl: 24h
+  messages_limit: 1000
+
+log:
+  level: "info"
+  output: "stdout"
+  format: "json"
+
+environment: "development"
