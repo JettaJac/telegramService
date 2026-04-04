@@ -36,7 +36,6 @@ func TestService_DeleteConnection(t *testing.T) {
 				s.clients.telegram["test_conn_to_delete"] = mockClient
 				m.mockTelegram["test_conn_to_delete"] = *mockClient
 
-				// Добавляем cancel функцию
 				cancelFunc := func() {}
 				s.cancelFuncs["test_conn_to_delete"] = cancelFunc
 
@@ -44,11 +43,9 @@ func TestService_DeleteConnection(t *testing.T) {
 			},
 			expectedError: "",
 			checkResult: func(t *testing.T, s *Service, connID string) {
-				// Проверяем, что клиент удален
 				_, exists := s.clients.telegram[connID]
 				assert.False(t, exists, "client should be removed from map")
 
-				// Проверяем, что cancelFunc удалена
 				_, exists = s.cancelFuncs[connID]
 				assert.False(t, exists, "cancelFunc should be removed")
 			},
@@ -116,7 +113,6 @@ func TestService_DeleteConnection(t *testing.T) {
 			},
 			expectedError: "failed to stop client: stop failed",
 			checkResult: func(t *testing.T, s *Service, connID string) {
-				// При ошибке клиент НЕ должен удаляться
 				_, exists := s.clients.telegram[connID]
 				assert.True(t, exists, "client should still exist after error")
 
@@ -129,12 +125,7 @@ func TestService_DeleteConnection(t *testing.T) {
 			connectionID: "test_conn_to_delete",
 			logout:       true,
 			setupMocks: func(ctrl *gomock.Controller) (*Service, *Mocks) {
-				//mockStorage := NewMockStorageInterface(ctrl)
 				mockTelegram := make(map[string]MockTelegramClientInterface)
-				//mockStorage.EXPECT().
-				//	DeleteConnection("test_conn_to_delete").
-				//	Return()
-
 				s, m := NewMocks(mockTelegram)
 
 				mockClient := NewMockTelegramClientInterface(ctrl)
@@ -145,7 +136,6 @@ func TestService_DeleteConnection(t *testing.T) {
 				s.clients.telegram["test_conn_to_delete"] = mockClient
 				m.mockTelegram["test_conn_to_delete"] = *mockClient
 
-				// Возвращаем cancelFunc для проверки
 				return s, m
 			},
 			expectedError: "",
@@ -186,7 +176,6 @@ func TestService_DeleteConnection(t *testing.T) {
 				assert.NoError(t, err)
 			}
 
-			// Дополнительные проверки
 			if tt.checkResult != nil {
 				tt.checkResult(t, s, tt.connectionID)
 			}

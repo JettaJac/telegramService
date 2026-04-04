@@ -20,8 +20,6 @@ type TelegramClient struct {
 	mu             sync.RWMutex
 	authorized     bool
 	cancelFunc     context.CancelFunc
-	//msgSender      *message.Sender
-	//peerResolver   *peer.Resolver
 }
 
 // MessageHandler ...

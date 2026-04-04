@@ -156,10 +156,8 @@ func TestTelegramClient_makeQRHandler(t *testing.T) {
 			handler := client.makeQRHandler(tt.qrCodeReady)
 			require.NotNil(t, handler)
 
-			// Создаем токен
 			token := qrlogin.NewToken([]byte(tt.tokenString), 60)
 
-			// Вызываем handler
 			err := handler(context.Background(), token)
 			require.NoError(t, err)
 		})

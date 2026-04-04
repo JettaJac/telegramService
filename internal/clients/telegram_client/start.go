@@ -165,13 +165,10 @@ func (c *TelegramClient) handleNewMessage(ctx context.Context, entities tg.Entit
 func (c *TelegramClient) extractSenderID(msg *tg.Message) string {
 	switch id := msg.PeerID.(type) {
 	case *tg.PeerUser:
-		// Личное сообщение — возвращаем ID пользователя
 		return fmt.Sprintf("user_%d", id.UserID)
 	case *tg.PeerChat:
-		// Сообщение из группы — возвращаем ID чата
 		return fmt.Sprintf("chat_%d", id.ChatID)
 	case *tg.PeerChannel:
-		// Сообщение из канала/супергруппы — возвращаем ID канала
 		return fmt.Sprintf("channel_%d", id.ChannelID)
 	default:
 		return "unknown"

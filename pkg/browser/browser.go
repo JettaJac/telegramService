@@ -55,7 +55,6 @@ func (s *QRServer) Start(qrData string) (string, error) {
 		_, _ = w.Write(png)
 	})
 
-	// Страница со статусом
 	mux.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
 		select {
 		case <-s.readyCh:
@@ -77,7 +76,6 @@ func (s *QRServer) Start(qrData string) (string, error) {
 
 	s.port = listener.Addr().(*net.TCPAddr).Port
 
-	// Запускаем сервер
 	go func() {
 		if err := s.server.Serve(listener); err != nil && err != http.ErrServerClosed {
 			s.logger.Error("QR server error", zap.Error(err))

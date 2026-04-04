@@ -22,7 +22,7 @@ type TelegramConfig struct {
 	APIID      int           `mapstructure:"api_id"`
 	APIHash    string        `mapstructure:"api_hash"`
 	SessionDir string        `mapstructure:"session_dir"`
-	QRTimeout  time.Duration `mapstructure:"qr_timeout"` // добавлено
+	QRTimeout  time.Duration `mapstructure:"qr_timeout"`
 }
 
 type ServerConfig struct {

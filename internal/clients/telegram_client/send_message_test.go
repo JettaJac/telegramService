@@ -333,7 +333,6 @@ func Test_generateMessageID(t *testing.T) {
 			} else {
 				id := generateMessageID()
 				require.Len(t, id, tt.wantLength)
-				// Проверяем что это hex строка
 				_, err := hex.DecodeString(id)
 				require.NoError(t, err)
 			}

@@ -27,13 +27,11 @@ func main() {
 		panic(fmt.Sprintf("failed to load config: %v", err))
 	}
 
-	// Инициализируем zap логгер с настройками из конфига
 	log := initLogger(cfg)
 	defer func() {
 		_ = log.Sync()
 	}()
 
-	// Логируем запуск с zap
 	log.Info("starting Telegram Service",
 		zap.String("version", "1.0.0"),
 		zap.String("environment", cfg.Environment),

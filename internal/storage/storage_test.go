@@ -41,15 +41,15 @@ func TestMemoryStorage_Connections(t *testing.T) {
 				storage.SaveConnection(conn)
 			}
 
-			got, ok := storage.GetConnection(tt.connectionID)
+			conn, ok := storage.GetConnection(tt.connectionID)
 			if tt.wantErr && ok {
-				t.Errorf("expected error, but got connection: %+v", got)
+				t.Errorf("expected error, but conn connection: %+v", conn)
 			}
 			if !tt.wantErr && !ok {
 				t.Errorf("expected connection, but not found")
 			}
-			if !tt.wantErr && got.Status != tt.status {
-				t.Errorf("expected status %s, got %s", tt.status, got.Status)
+			if !tt.wantErr && conn.Status != tt.status {
+				t.Errorf("expected status %s, conn %s", tt.status, conn.Status)
 			}
 		})
 	}
@@ -98,9 +98,9 @@ func TestMemoryStorage_Messages(t *testing.T) {
 				storage.AddMessage(msg)
 			}
 
-			got := storage.GetMessages(tt.connectionID, tt.limit)
-			if len(got) != tt.expectedLen {
-				t.Errorf("expected %d messages, got %d", tt.expectedLen, len(got))
+			msg := storage.GetMessages(tt.connectionID, tt.limit)
+			if len(msg) != tt.expectedLen {
+				t.Errorf("expected %d messages, msg %d", tt.expectedLen, len(msg))
 			}
 		})
 	}
@@ -139,9 +139,9 @@ func TestMemoryStorage_ListConnections(t *testing.T) {
 				storage.SaveConnection(conn)
 			}
 
-			got := storage.ListConnections()
-			if len(got) != tt.expectedCount {
-				t.Errorf("expected %d connections, got %d", tt.expectedCount, len(got))
+			conns := storage.ListConnections()
+			if len(conns) != tt.expectedCount {
+				t.Errorf("expected %d connections, conns %d", tt.expectedCount, len(conns))
 			}
 		})
 	}

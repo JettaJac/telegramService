@@ -128,19 +128,6 @@ func TestService_checkConnectionExists(t *testing.T) {
 		wantExists   bool
 		wantErr      bool
 	}{
-		//"connection exists and authorized": {
-		//	connectionID: "existing_conn",
-		//	setup: func(s *Service) {
-		//		mockClient := &MockTelegramClientInterface{
-		//			IsAuthorizedFn: func() bool { return true },
-		//			IsAuthorized: func() bool {}
-		//			IsAuthorizedFunc: func() bool { return true },
-		//		}
-		//		s.clients.telegram["existing_conn"] = mockClient
-		//	},
-		//	wantExists: true,
-		//	wantErr:    true,
-		//},
 		"connection does not exist": {
 			connectionID: "non_existent",
 			setup:        func(s *Service) {},
@@ -384,69 +371,6 @@ func TestService_generateID(t *testing.T) {
 		t.Errorf("expected different IDs, got same: %s", id1)
 	}
 }
-
-//func TestService_GetMessages(t *testing.T) {
-//	log := logger.NewLogger()
-// strg := storage.NewMemoryStorage()
-//
-//	strg.AddMessage(&storage.Message{ID: "msg1", ConnectionID: "test_conn", Text: "Hello"})
-//	strg.AddMessage(&storage.Message{ID: "msg2", ConnectionID: "test_conn", Text: "World"})
-//
-//	testCases := map[string]struct {
-//		connectionID string
-//		limit        int
-//		expectedLen  int
-//	}{
-//		"get all messages": {
-//			connectionID: "test_conn",
-//			limit:        0,
-//			expectedLen:  2,
-//		},
-//		"get limited messages": {
-//			connectionID: "test_conn",
-//			limit:        1,
-//			expectedLen:  1,
-//		},
-//		"empty connection": {
-//			connectionID: "empty_conn",
-//			limit:        10,
-//			expectedLen:  0,
-//		},
-//	}
-//
-//	for name, tt := range testCases {
-//		t.Run(name, func(t *testing.T) {
-//			s := &Service{
-//				storage: strg,
-//				logger:  log,
-//			}
-//			messages := s.GetMessages(tt.connectionID, tt.limit)
-//
-//			if len(messages) != tt.expectedLen {
-//				t.Errorf("expected %d messages, got %d", tt.expectedLen, len(messages))
-//			}
-//		})
-//	}
-//}
-
-//func TestService_ListConnections(t *testing.T) {
-//	log := logger.NewLogger()
-// strg := storage.NewMemoryStorage()
-//
-//	storage.SaveConnection(&storage.ConnectionInfo{ID: "conn1", Status: "pending"})
-//	storage.SaveConnection(&storage.ConnectionInfo{ID: "conn2", Status: "authorized"})
-//
-//	s := &Service{
-//		storage: strg,
-//		logger:  log,
-//	}
-//
-//	connections := s.ListConnections()
-//
-//	if len(connections) != 2 {
-//		t.Errorf("expected 2 connections, got %d", len(connections))
-//	}
-//}
 
 func contains(s, substr string) bool {
 	return len(s) >= len(substr) && (s == substr ||

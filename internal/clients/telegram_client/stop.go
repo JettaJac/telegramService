@@ -34,7 +34,7 @@ func (c *TelegramClient) Stop(ctx context.Context, logout bool) error {
 				zap.Error(err))
 		}
 	}
-	// Синхронизируем логгер
+
 	if c.logger != nil {
 		_ = c.logger.Sync()
 	}

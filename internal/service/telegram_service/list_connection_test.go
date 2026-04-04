@@ -12,7 +12,6 @@ func TestSessionManager_ListConnections(t *testing.T) {
 	logger, _ := zap.NewDevelopment()
 	strg := storage.NewMemoryStorage()
 
-	// Добавляем тестовые соединения
 	strg.SaveConnection(&storage.ConnectionInfo{
 		ID:        "conn1",
 		Status:    "pending",

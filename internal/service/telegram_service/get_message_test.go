@@ -16,7 +16,6 @@ func TestService_GetMessages(t *testing.T) {
 	log := logger.NewLogger()
 	strg := storage.NewMemoryStorage()
 
-	// Подготовка тестовых данных
 	testConnectionID := "test_conn_messages"
 
 	testMessages := []*storage.Message{
@@ -107,7 +106,6 @@ func TestService_GetMessages(t *testing.T) {
 				t.Errorf("expected %d messages, got %d", tt.expectedLen, len(messages))
 			}
 
-			// Проверяем, что сообщения приходят в правильном порядке (старые сначала)
 			if tt.expectedLen > 1 && tt.limit != 1 {
 				for i := 1; i < len(messages); i++ {
 					if messages[i].Timestamp < messages[i-1].Timestamp {

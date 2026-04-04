@@ -42,7 +42,7 @@ install-protoc:
 	cp -r /tmp/protoc_install/include $(LOCAL_BIN)/
 	chmod +x $(LOCAL_BIN)/protoc
 	rm -rf /tmp/protoc_install
-	@echo "✅ protoc installed to $(LOCAL_BIN)"
+	@echo "protoc installed to $(LOCAL_BIN)"
 
 .PHONY: install-go-plugins
 install-go-plugins:
@@ -53,7 +53,7 @@ install-go-plugins:
 	GOBIN=$(LOCAL_BIN) go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 	GOBIN=$(LOCAL_BIN) go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 	GOBIN=$(LOCAL_BIN) go install go.uber.org/mock/mockgen@latest
-	@echo "✅ Go plugins installed to $(LOCAL_BIN)"
+	@echo "Go plugins installed to $(LOCAL_BIN)"
 
 .PHONY: install-googleapis
 install-googleapis:
@@ -61,7 +61,7 @@ install-googleapis:
 		echo "📥 Downloading googleapis..."; \
 		git clone --depth 1 https://github.com/googleapis/googleapis.git $(GOOGLEAPIS_DIR); \
 	else \
-		echo "✅ googleapis already exists at $(GOOGLEAPIS_DIR)"; \
+		echo "googleapis already exists at $(GOOGLEAPIS_DIR)"; \
 	fi
 
 .PHONY: generate
@@ -75,7 +75,7 @@ generate:
 		--grpc-gateway_out=pb/go --grpc-gateway_opt=paths=source_relative \
 		--openapiv2_out=swagger \
 		$(PROTO_DIR)/telegram_service.proto
-	@echo "✅ Code generation complete"
+	@echo "Code generation complete"
 
 .PHONY: build
 build:
@@ -124,7 +124,7 @@ mock:
 	PATH="$(LOCAL_BIN):$(PATH)" go generate ./...
 
 .PHONY: clean-mocks
-clean-mocks: ## Очистка сгенерированных моков
+clean-mocks:
 	@echo "Cleaning mocks..."
 	@find . -name "*_mock.go" -type f -delete
 	@find . -name "mock_*.go" -type f -delete
@@ -138,4 +138,4 @@ clean:
 	@echo "Cleaning..."
 	rm -rf $(LOCAL_BIN)
 	rm -rf pb/go swagger
-	@echo "✅ Clean complete"
+	@echo "Clean complete"

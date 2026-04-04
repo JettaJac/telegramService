@@ -188,9 +188,7 @@ func TestQRServer_Close(t *testing.T) {
 				t.Errorf("unexpected error on close: %v", err)
 			}
 
-			// Проверяем, что сервер закрыт
 			if tt.startServer {
-				// Попытка подключиться к закрытому серверу должна вернуть ошибку
 				time.Sleep(100 * time.Millisecond)
 			}
 		})
@@ -308,7 +306,6 @@ func TestQRServer_Integration(t *testing.T) {
 		t.Errorf("expected Content-Type image/png, got %s", resp.Header.Get("Content-Type"))
 	}
 
-	// Проверяем статус endpoint
 	statusResp, err := client.Get(url + "/status")
 	if err != nil {
 		t.Fatalf("failed to get status: %v", err)
@@ -316,7 +313,4 @@ func TestQRServer_Integration(t *testing.T) {
 	defer func() {
 		_ = statusResp.Body.Close()
 	}()
-
-	// Изначально статус должен быть "pending"
-	// Проверка содержимого зависит от реализации
 }
